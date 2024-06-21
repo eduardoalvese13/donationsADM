@@ -14,7 +14,8 @@ public class Main {
             System.out.println("1. Adicionar doação");
             System.out.println("2. Visualizar doações");
             System.out.println("3. Deletar doação");
-            System.out.println("4. Sair");
+            System.out.println("4. Calcular total de doações");
+            System.out.println("5. Sair");
             System.out.print(">> Sua opção: ");
 
             choice = scanner.nextInt();
@@ -31,12 +32,15 @@ public class Main {
                     deleteDonation();
                     break;
                 case 4:
+                    calculateTotalDonations();
+                    break;
+                case 5:
                     System.out.println(">> Saindo da aplicação...");
                     break;
                 default:
                     System.out.println(">> Opção inválida!");
             }
-        } while (choice != 4);
+        } while (choice != 5);
 
         scanner.close();
     }
@@ -54,22 +58,23 @@ public class Main {
 
 
             System.out.println("");
-          
+
             System.out.println(">>> ADICIONAR DOAÇÃO <<<");
             Scanner scanner = new Scanner(System.in);
             System.out.println(">> Digite um nome para a doação: "); 
             String nameDonation = scanner.nextLine();
-          
+
             System.out.println(">> Digite o tipo de doação:");
             String tipoDonation = scanner.nextLine();
-          
+
             System.out.println(">> Digite a quantidade da doação:");
             double qtdDonation = scanner.nextDouble();
-          
+
+            scanner.nextLine(); // Corrigido para consumir a nova linha
+
             System.out.println(">> Digite a data da doação:");
             String dateDonation = scanner.nextLine();
-          
-            scanner.nextLine();
+
             out.println(nameDonation + "," + tipoDonation + "," + qtdDonation + "," + dateDonation);
             System.out.println(">> Doação adicionada com sucesso!");
         } catch (IOException e) {
@@ -97,7 +102,7 @@ public class Main {
             System.out.println(">> Doações cadastradas");
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(",");
-                System.out.println(">> Nome: " + parts[0] + ", Tipo: " + parts[1] + ", Quantidade: " + parts[2] + ", Data: " + parts[2]);
+                System.out.println(">> Nome: " + parts[0] + ", Tipo: " + parts[1] + ", Quantidade: " + parts[2] + ", Data: " + parts[3]);
             }
         } catch (IOException e) {
             System.err.println(">> Erro ao visualizar as doações: " + e.getMessage());
@@ -161,6 +166,32 @@ public class Main {
         File tempFile = new File("temp.txt");
         if (inputFile.delete()) {
             tempFile.renameTo(inputFile);
+        }
+    }
+
+    // Método para calcular o total de doações
+
+    private static void calculateTotalDonations() {
+        BufferedReader br = null;
+        double total = 0.0;
+        try {
+            br = new BufferedReader(new FileReader(FILE_NAME));
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(",");
+                total += Double.parseDouble(parts[2]);
+            }
+            System.out.println("");
+            System.out.println(">>> CALCULAR TOTAL DE DOAÇÕES <<<");
+            System.out.println(">> A quantidade total de doações recebidas é: " + total);
+        } catch (IOException e) {
+            System.err.println(">> Erro ao calcular o total de doações: " + e.getMessage());
+        } finally {
+            try {
+                if (br != null) br.close();
+            } catch (IOException e) {
+                System.err.println(">> Erro ao fechar o leitor: " + e.getMessage());
+            }
         }
     }
 }
