@@ -1,0 +1,53 @@
+Descrição Geral da Classe Main
+A classe Main contém a lógica principal do programa. Ela é responsável por exibir um menu de opções para o usuário, capturar as entradas do usuário e executar as funções correspondentes para adicionar, visualizar, deletar e calcular o total de doações. O programa usa um arquivo chamado "donations.txt" para armazenar as informações das doações.
+
+Constantes
+FILE_NAME: Uma constante que define o nome do arquivo onde as doações são armazenadas ("donations.txt").
+Método main
+public static void main(String[] args): Este é o ponto de entrada do programa. Ele exibe um menu com cinco opções: adicionar doação, visualizar doações, deletar doação, calcular total de doações e sair. Dependendo da escolha do usuário, ele chama os métodos apropriados para realizar a ação escolhida.
+Métodos Privados
+addDonation:
+
+Este método adiciona uma nova doação ao arquivo "donations.txt".
+Ele solicita ao usuário o nome, tipo, quantidade e data da doação.
+Usa FileWriter, BufferedWriter e PrintWriter para escrever a nova doação no arquivo.
+viewDonation:
+
+Este método exibe todas as doações armazenadas no arquivo.
+Usa BufferedReader para ler o arquivo "donations.txt" e imprime cada doação formatada no console.
+deleteDonation:
+
+Este método remove uma doação específica do arquivo com base no nome fornecido pelo usuário.
+Ele cria um arquivo temporário para escrever todas as doações que não correspondem ao nome fornecido.
+Depois, substitui o arquivo original pelo arquivo temporário.
+calculateTotalDonations:
+
+Este método calcula o total das quantidades de todas as doações.
+Usa BufferedReader para ler o arquivo "donations.txt", soma as quantidades e exibe o total no console.
+Fluxo de Execução do Programa
+Menu Principal:
+
+O programa exibe um menu e solicita que o usuário escolha uma opção.
+Dependendo da escolha, ele chama o método correspondente.
+Adicionar Doação:
+
+Se o usuário escolher a opção 1, o método addDonation é chamado.
+O método solicita os detalhes da doação e a adiciona ao arquivo.
+Visualizar Doações:
+
+Se o usuário escolher a opção 2, o método viewDonation é chamado.
+O método lê o arquivo e exibe todas as doações no console.
+Deletar Doação:
+
+Se o usuário escolher a opção 3, o método deleteDonation é chamado.
+O método solicita o nome da doação a ser deletada e remove a doação correspondente do arquivo.
+Calcular Total de Doações:
+
+Se o usuário escolher a opção 4, o método calculateTotalDonations é chamado.
+O método lê o arquivo, soma as quantidades de todas as doações e exibe o total no console.
+Sair:
+
+Se o usuário escolher a opção 5, o programa exibe uma mensagem de saída e termina.
+Tratamento de Exceções
+Todos os métodos que interagem com arquivos têm tratamento de exceções para IOException, garantindo que mensagens de erro apropriadas sejam exibidas se ocorrer algum problema durante a leitura ou escrita dos arquivos.
+Uso de blocos finally para garantir que os recursos de I/O sejam fechados corretamente, evitando vazamentos de recursos.
